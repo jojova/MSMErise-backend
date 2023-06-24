@@ -25,8 +25,14 @@ export class UsersController {
   }
 
   @Post('signup')
-  createUser(@Body() user: User): User {
-    return this.usersService.createUser(user);
+  createUser(@Body() user: User): boolean {
+    const existingUser = this.usersService.getAllUsers().find(u => u.userEmail === user.userEmail);
+    if (existingUser) {
+      return false; // User with the same userEmail already exists
+    }
+    
+    const signupSuccessful = this.usersService.createUser(user);
+    return signupSuccessful;
   }
 
   @Post('signin')
