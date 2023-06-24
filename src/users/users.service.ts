@@ -14,13 +14,13 @@ export class UsersService {
     return this.users.find((user) => user.userID === id);
   }
 
-  createUser(user: User): User {
+  createUser(user: User): boolean {
     const generatedUser: User = {
       ...user,
       userID: uuidv4(), // Generate userID using uuidv4()
     };
     this.users.push(generatedUser);
-    return generatedUser;
+    return true;
   }
 
   updateUser(id: string, user: User): User {
